@@ -1,5 +1,5 @@
-name: 'Angular Test Coverage'
-description: 'Include angular test coverage for the touched files in a Pull Request'
+name: 'Test Coverage Report'
+description: 'Report test coverage summary of the pull-request touched files in the description'
 inputs:
   token:  # id of input
     description: 'GITHUB Token'
@@ -16,3 +16,6 @@ outputs:
 runs:
   using: 'node12'
   main: 'dist/index.js'
+branding:
+  icon: 'align-left'  
+  color: 'purple'
