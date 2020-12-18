@@ -1,0 +1,18 @@
+name: 'Angular Test Coverage'
+description: 'Include angular test coverage for the touched files in a Pull Request'
+inputs:
+  token:  # id of input
+    description: 'GITHUB Token'
+    required: true
+  path:
+    description: 'Path to the coverage json file'
+    required: true
+  title:
+    description: 'Title of the report summary'
+    required: true
+outputs:
+  summary: # id of output
+    description: 'Summary of the report as a json object'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
