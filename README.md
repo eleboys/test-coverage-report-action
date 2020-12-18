@@ -17,13 +17,13 @@ This action will report test coverage summary of the touched files within a pull
 ## Outputs
 
 ### `summary`
-Summary of the report in json format
+Summary of the report in json format. sample:
 ```json
 {
-    "lines": { "total": number, "covered": number, "skipped": number, "pct": number },
-    "functions": { "total": number, "covered": number, "skipped": number, "pct": number },
-    "statements": { "total": number, "covered": number, "skipped": number, "pct": number },
-    "branches": { "total": number, "covered": number, "skipped": number, "pct": number }
+    "lines": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 },
+    "functions": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 },
+    "statements": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 },
+    "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 }
 }
 ```
 
@@ -32,7 +32,7 @@ Setup your test framework to use `Istanbul` to create coverage report as json fi
 
 ## Example usage
 
-```
+```yml
 on:
   pull_request:
     branches: [main, dev]
