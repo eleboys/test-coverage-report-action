@@ -83,7 +83,7 @@ async function updatePullRequestDescription(
 function buildPullRequestDescription(body: string, coverage: string) {
     const title = coverage.split("\n")[0];
     const start = body.indexOf(title);
-    const end = body.indexOf(".|", start);
+    const end = body.indexOf("•", start);
     if (start < 0 || end < 0) {
         return body + "\n\n" + coverage;
     }
@@ -126,7 +126,7 @@ function reportToString(report: Report, title: string): string {
 
     if (!report) {
         return `==== **${title}** ====
-        None of the files form test coverage report was touched .|`
+        None of the files form test coverage report were touched•`
     }
 
     const coverage = `==== **${title}** ====
@@ -143,7 +143,7 @@ function reportToString(report: Report, title: string): string {
     } )   | ${report.statements.pct.toFixed(2)}% |
   | Branches   |   ( ${report.branches.covered}  /${
         report.branches.total
-    } )   | ${report.branches.pct.toFixed(2)}% .|`;
+    } )   | ${report.branches.pct.toFixed(2)}% .|•`;
 
     return coverage;
 }
