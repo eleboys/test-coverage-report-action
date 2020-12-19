@@ -125,11 +125,11 @@ function generateReport(path: string, files: string[]): Report {
 function reportToString(report: Report, title: string): string {
 
     if (!report) {
-        return `==== **${title}** ====
+        return `### ${title}
         None of the files form test coverage report were touched•`
     }
 
-    const coverage = `==== **${title}** ====
+    const coverage = `### ${title}
   | Type       |   #   |  %  |
   |------------|:-----:|:---:|
   | Lines      |   ( ${report.lines.covered}     /${
