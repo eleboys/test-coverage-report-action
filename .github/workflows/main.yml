@@ -17,7 +17,7 @@ jobs:
         run: npm run coverage
 
       - name: Coverage report
-        uses: ~
+        uses: eleboys/test-coverage-report-action@v1.0.1
         id: report
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
