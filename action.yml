@@ -1,5 +1,5 @@
 name: 'PullRequest Test Coverage Report'
-description: 'Reports test coverage summary of each pull-request's touched files in the description'
+description: 'Reports test coverage summary of each pull-requests touched files in the description'
 inputs:
   token:  # id of input
     description: 'GITHUB Token'
