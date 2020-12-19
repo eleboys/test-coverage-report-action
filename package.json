@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ts-node node_modules/jasmine/bin/jasmine --config=jasmine.json",
+    "coverage": "nyc npm run test",
     "build": "ncc build ./src/index.ts -o dist -m",
     "watch": "ncc build ./src/index.ts -o dist -w"
   },
@@ -13,6 +14,10 @@
   "license": "ISC",
   "devDependencies": {
     "@vercel/ncc": "^0.25.1",
+    "istanbul": "^0.4.5",
+    "jasmine": "^3.6.3",
+    "nyc": "^15.1.0",
+    "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   },
   "dependencies": {

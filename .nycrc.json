@@ -1,0 +1,6 @@
+{
+    "all": true,
+    "reporter": ["json-summary", "text", "html"],
+    "extension": [".ts"],
+    "include": ["src/**/*.*"]
+}

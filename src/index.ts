@@ -2,9 +2,10 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 import * as fs from "fs";
 
-import { Report, CoverageReport, ReportItem, PullRequest } from "./models";
+import { Report, ReportItem, PullRequest } from "./models";
+import { addReport } from "./utils";
 
-async function run() {
+export async function run() {
     try {
         const inputs = {
             token: core.getInput("token"),
@@ -160,30 +161,6 @@ function calculateCoverage(
     return output.reduce((sum, item) => {
         return addReport(sum, item);
     });
-}
-
-function addReport(r1: Report, r2: Report): Report {
-    return {
-        branches: addCoverageReport(r1?.branches, r2?.branches),
-        functions: addCoverageReport(r1?.functions, r2?.functions),
-        lines: addCoverageReport(r1?.lines, r2?.lines),
-        statements: addCoverageReport(r1?.statements, r2?.statements),
-    };
-}
-
-function addCoverageReport(
-    c1: CoverageReport,
-    c2: CoverageReport
-): CoverageReport {
-    const res = {
-        covered: (c1?.covered || 0) + (c2?.covered || 0),
-        skipped: (c1?.skipped || 0) + (c2?.skipped || 0),
-        total: (c1?.total || 0) + (c2?.total || 0),
-        pct: 0,
-    };
-
-    res.pct = (res.covered / res.total || 0) * 100;
-    return res;
 }
 
 function reportToArray(report: { [key: string]: Report }): ReportItem[] {
