@@ -49,10 +49,13 @@ jobs:
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 
       - name: Coverage report
-        uses: eleboys/test-coverage-report@v1
+        uses: eleboys/test-coverage-report-action@v1
         id: report
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: coverage/coverage-summary.json
           title: Karma Test Coverage
+
+      - name: Get the output time
+        run: echo "Report coverage json ${{ steps.report.outputs.summary }}"
 ```
