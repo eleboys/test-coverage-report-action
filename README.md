@@ -49,7 +49,7 @@ jobs:
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 
       - name: Coverage report
-        uses: eleboys/test-coverage-report-action@v1
+        uses: eleboys/test-coverage-report-action@v1.0.2
         id: report
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
