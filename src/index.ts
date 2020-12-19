@@ -143,7 +143,7 @@ function reportToString(report: Report, title: string): string {
     } )   | ${report.statements.pct.toFixed(2)}% |
   | Branches   |   ( ${report.branches.covered}  /${
         report.branches.total
-    } )   | ${report.branches.pct.toFixed(2)}% .|•`;
+    } )   | ${report.branches.pct.toFixed(2)}% |•`;
 
     return coverage;
 }
