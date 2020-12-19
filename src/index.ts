@@ -122,7 +122,13 @@ function generateReport(path: string, files: string[]): Report {
     return calculateCoverage(files, json);
 }
 
-function reportToString(report: Report, title: string) {
+function reportToString(report: Report, title: string): string {
+
+    if (!report) {
+        return `==== **${title}** ====
+        None of the files form test coverage report was touched .|`
+    }
+
     const coverage = `==== **${title}** ====
   | Type       |   #   |  %  |
   |------------|:-----:|:---:|
@@ -157,6 +163,10 @@ function calculateCoverage(
             output.push(item.report);
         }
     });
+
+    if (!output.length) {
+        return null;
+    }
 
     return output.reduce((sum, item) => {
         return addReport(sum, item);
