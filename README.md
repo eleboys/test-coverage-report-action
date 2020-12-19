@@ -56,6 +56,6 @@ jobs:
           path: coverage/coverage-summary.json
           title: Karma Test Coverage
 
-      - name: Get the output time
+      - name: Print the output summary
         run: echo "Report coverage json ${{ steps.report.outputs.summary }}"
 ```
