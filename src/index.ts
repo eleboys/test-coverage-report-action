@@ -155,8 +155,6 @@ function calculateCoverage(
     const output: Report[] = [];
     const reports = reportToArray(report);
 
-    console.log(reports);
-
     changedFiles.forEach((cf) => {
         const item = reports.find((r) =>
             r.fileName.toLocaleLowerCase().endsWith(cf)
@@ -165,8 +163,6 @@ function calculateCoverage(
             output.push(item.report);
         }
     });
-
-    console.log('output', output);
 
     if (!output.length) {
         return null;
