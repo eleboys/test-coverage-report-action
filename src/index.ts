@@ -2,8 +2,8 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 import * as fs from "fs";
 
-import { Report, ReportItem, PullRequest } from "./models";
-import { addReport, calculateCoverage } from "./utils";
+import { Report, PullRequest } from "./models";
+import { calculateCoverage } from "./utils";
 
 export async function run() {
     try {
@@ -22,7 +22,7 @@ export async function run() {
 
         const octokit = github.getOctokit(inputs.token);
         const files = await getPullRequestFiles(octokit, pr);
-        const report = generateReport(inputs.path, files);
+        const report = loadReportFromSummaryFile(inputs.path, files);
         const coverage = reportToString(report, inputs.title);
 
         await updatePullRequestDescription(pr, octokit, coverage);
@@ -113,7 +113,7 @@ async function getPullRequestFiles(octokit, pr: PullRequest) {
         .map((f) => f.filename);
 }
 
-function generateReport(path: string, files: string[]): Report {
+function loadReportFromSummaryFile(path: string, files: string[]): Report {
     const data = fs.readFileSync(
         `${process.env.GITHUB_WORKSPACE}/${path}`,
         "utf8"

@@ -51,8 +51,12 @@ export function calculateCoverage(
 }
 
 export function reportToArray(report: { [key: string]: Report }): ReportItem[] {
-    const props = Object.getOwnPropertyNames(report);
     const reports: ReportItem[] = [];
+    if (!report) {
+        return reports;
+    } 
+    
+    const props = Object.getOwnPropertyNames(report);
 
     props.forEach((prop) => {
         reports.push({
