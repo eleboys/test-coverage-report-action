@@ -3,7 +3,7 @@ import * as github from "@actions/github";
 import * as fs from "fs";
 
 import { Report, ReportItem, PullRequest } from "./models";
-import { addReport } from "./utils";
+import { addReport, calculateCoverage } from "./utils";
 
 export async function run() {
     try {
@@ -146,45 +146,6 @@ function reportToString(report: Report, title: string): string {
     } )   | ${report.branches.pct.toFixed(2)}% |•`;
 
     return coverage;
-}
-
-function calculateCoverage(
-    changedFiles: string[],
-    report: { [key: string]: Report }
-): Report {
-    const output: Report[] = [];
-    const reports = reportToArray(report);
-
-    changedFiles.forEach((cf) => {
-        const item = reports.find((r) =>
-            r.fileName.toLocaleLowerCase().endsWith(cf)
-        );
-        if (item) {
-            output.push(item.report);
-        }
-    });
-
-    if (!output.length) {
-        return null;
-    }
-
-    return output.reduce((sum, item) => {
-        return addReport(sum, item);
-    });
-}
-
-function reportToArray(report: { [key: string]: Report }): ReportItem[] {
-    const props = Object.getOwnPropertyNames(report);
-    const reports: ReportItem[] = [];
-
-    props.forEach((prop) => {
-        reports.push({
-            fileName: prop,
-            report: report[prop],
-        });
-    });
-
-    return reports;
 }
 
 run();

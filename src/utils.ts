@@ -1,4 +1,4 @@
-import { CoverageReport, Report } from "./models";
+import { CoverageReport, Report, ReportItem } from "./models";
 
 export function addReport(r1: Report, r2: Report): Report {
     return {
@@ -22,4 +22,44 @@ export function addCoverageReport(
 
     res.pct = (res.covered / res.total || 0) * 100;
     return res;
+}
+
+
+export function calculateCoverage(
+    changedFiles: string[],
+    report: { [key: string]: Report }
+): Report {
+    const output: Report[] = [];
+    const reports = reportToArray(report);
+
+    changedFiles.forEach((cf) => {
+        const item = reports.find((r) =>
+            r.fileName.toLocaleLowerCase().endsWith(cf)
+        );
+        if (item) {
+            output.push(item.report);
+        }
+    });
+
+    if (!output.length) {
+        return null;
+    }
+
+    return output.reduce((sum, item) => {
+        return addReport(sum, item);
+    });
+}
+
+export function reportToArray(report: { [key: string]: Report }): ReportItem[] {
+    const props = Object.getOwnPropertyNames(report);
+    const reports: ReportItem[] = [];
+
+    props.forEach((prop) => {
+        reports.push({
+            fileName: prop,
+            report: report[prop],
+        });
+    });
+
+    return reports;
 }
