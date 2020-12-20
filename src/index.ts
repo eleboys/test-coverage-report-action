@@ -3,7 +3,7 @@ import * as github from "@actions/github";
 import * as fs from "fs";
 
 import { Report, PullRequest } from "./models";
-import { calculateCoverage } from "./utils";
+import { calculateCoverage, reportToString } from "./report-utils";
 
 export async function run() {
     try {
@@ -120,32 +120,6 @@ function loadReportFromSummaryFile(path: string, files: string[]): Report {
     );
     const json = JSON.parse(data);
     return calculateCoverage(files, json);
-}
-
-function reportToString(report: Report, title: string): string {
-
-    if (!report) {
-        return `### ${title}
-        None of the files form test coverage report were touched•`
-    }
-
-    const coverage = `### ${title}
-  | Type       |   #   |  %  |
-  |------------|:-----:|:---:|
-  | Lines      |   ( ${report.lines.covered}     /${
-        report.lines.total
-    } )   | ${report.lines.pct.toFixed(2)}% |
-  | Functions  |   ( ${report.functions.covered} /${
-        report.functions.total
-    } )   | ${report.functions.pct.toFixed(2)}% |
-  | Statements |   ( ${report.statements.covered}/${
-        report.statements.total
-    } )   | ${report.statements.pct.toFixed(2)}% |
-  | Branches   |   ( ${report.branches.covered}  /${
-        report.branches.total
-    } )   | ${report.branches.pct.toFixed(2)}% |•`;
-
-    return coverage;
 }
 
 run();

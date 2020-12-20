@@ -67,3 +67,29 @@ export function reportToArray(report: { [key: string]: Report }): ReportItem[] {
 
     return reports;
 }
+
+export function reportToString(report: Report, title: string): string {
+
+    if (!report) {
+        return `### ${title}
+        None of the files form test coverage report were touched•`
+    }
+
+    const coverage = `### ${title}
+  | Type       |   #   |  %  |
+  |------------|:-----:|:---:|
+  | Lines      |   ( ${report.lines.covered}     /${
+        report.lines.total
+    } )   | ${report.lines.pct.toFixed(2)}% |
+  | Functions  |   ( ${report.functions.covered} /${
+        report.functions.total
+    } )   | ${report.functions.pct.toFixed(2)}% |
+  | Statements |   ( ${report.statements.covered}/${
+        report.statements.total
+    } )   | ${report.statements.pct.toFixed(2)}% |
+  | Branches   |   ( ${report.branches.covered}  /${
+        report.branches.total
+    } )   | ${report.branches.pct.toFixed(2)}% |•`;
+
+    return coverage;
+}

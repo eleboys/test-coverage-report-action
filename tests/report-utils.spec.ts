@@ -1,4 +1,4 @@
-import { addCoverageReport, addReport, calculateCoverage, reportToArray } from "../src/utils";
+import { addCoverageReport, addReport, calculateCoverage, reportToArray, reportToString } from "../src/report-utils";
 
 const sampleCoverageSummary = {
     "total": {
@@ -106,5 +106,18 @@ describe("test calculateCoverage method", () => {
     it("should calculate correct report base on two touched file", () => {
         const res = calculateCoverage(["file1.ts", "file2.ts", "file4.ts"], sampleCoverageSummary);
         expect(res.branches).toEqual({"total":110,"covered":75,"skipped":0,"pct": 68.18181818181817 });
+    });
+});
+
+describe("test reportToString method", () => {
+    it("should return planned value if no report is passed", () => {
+        const res = reportToString(null, null);
+        expect(res).toEqual(`### ${null}\n        None of the files form test coverage report were touched•`)
+    });
+
+    it("should return planned value if report is passed", () => {
+        const report = sampleCoverageSummary.total;
+        const res = reportToString(sampleCoverageSummary.total, "TITLE");
+        expect(res.length).toEqual(248)
     });
 });
